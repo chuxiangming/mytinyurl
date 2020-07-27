@@ -29,10 +29,17 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
 
-    compile 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testCompileOnly 'org.projectlombok:lombok:1.18.8'
     compile 'com.google.guava:guava:19.0'
     compile 'org.apache.commons:commons-lang3:3.9'
     testCompile 'org.junit.jupiter:junit-jupiter:5.4.2'
