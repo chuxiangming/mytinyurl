@@ -24,6 +24,6 @@ public class MainController {
   @GetMapping("/tiny/{tinyUrl}")
   @ResponseBody
   public String go(@PathVariable String tinyUrl) {
-    return "redirect:" + myTinyUrlService.getFullUrl(tinyUrl);
+    return myTinyUrlService.getFullUrl(tinyUrl);
   }
 }

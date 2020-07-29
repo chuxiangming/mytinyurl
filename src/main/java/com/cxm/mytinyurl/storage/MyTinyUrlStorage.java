@@ -4,9 +4,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class MyTinyUrlStorage {
   private final Map<String, String> fullToTiny = new HashMap<>();
   private final Map<String, String> tinyToFull = new HashMap<>();
