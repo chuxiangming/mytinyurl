@@ -36,4 +36,4 @@ The length of the tiny url slug will be 8.
 - Source: src/main
 - SQL: src/main/resources/sql/tb_tiny_url.sql
 - Test Source: src/test
-- Test Coverage: Test Results - mytinyurl_[test].html or run ```gradlew test```
+- Test Coverage: test_coverage/index.html or run ```gradlew test``` with coverage
