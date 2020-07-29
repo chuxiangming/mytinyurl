@@ -4,15 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.cxm.mytinyurl.TestUtil;
+import com.cxm.mytinyurl.dao.mapper.MockTinyUrlMapperImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MyTinyUrlStorageTest {
+public class MyTinyUrlDbStorageTest {
   private MyTinyUrlStorage storage;
 
   @BeforeEach
   public void before() {
-    storage = new MyTinyUrlStorage();
+    storage = new MyTinyUrlDbStorage(new MockTinyUrlMapperImpl());
   }
 
   @Test

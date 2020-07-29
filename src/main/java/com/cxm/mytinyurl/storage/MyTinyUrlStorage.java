@@ -1,26 +1,10 @@
 package com.cxm.mytinyurl.storage;
 
-import static com.google.common.base.Preconditions.checkArgument;
+public interface MyTinyUrlStorage {
 
-import java.util.HashMap;
-import java.util.Map;
+  void createTinyUrl(String fullUrl, String tinyUrl);
 
-//@Component
-public class MyTinyUrlStorage {
-  private final Map<String, String> fullToTiny = new HashMap<>();
-  private final Map<String, String> tinyToFull = new HashMap<>();
+  String getTinyUrl(String fullUrl);
 
-  public void createTinyUrl(String fullUrl, String tinyUrl) {
-    checkArgument(!fullToTiny.containsKey(fullUrl) && !tinyToFull.containsKey(tinyUrl));
-    fullToTiny.put(fullUrl, tinyUrl);
-    tinyToFull.put(tinyUrl, fullUrl);
-  }
-
-  public String getTinyUrl(String fullUrl) {
-    return fullToTiny.get(fullUrl);
-  }
-
-  public String getFullUrl(String tinyUrl) {
-    return tinyToFull.get(tinyUrl);
-  }
+  String getFullUrl(String tinyUrl);
 }

@@ -2,10 +2,12 @@ package com.cxm.mytinyurl.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.cxm.mytinyurl.TestUtil;
-import com.cxm.mytinyurl.storage.MyTinyUrlStorage;
+import com.cxm.mytinyurl.storage.MockMyTinyUrlStorage;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,7 @@ class MyTinyUrlServiceTest {
 
   @BeforeEach
   void before() {
-    service = new MyTinyUrlService(new MyTinyUrlStorage());
+    service = new MyTinyUrlService(new MockMyTinyUrlStorage());
   }
 
   @Test

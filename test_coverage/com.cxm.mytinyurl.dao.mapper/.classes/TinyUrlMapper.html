@@ -1,0 +1,70 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TinyUrlMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.cxm.mytinyurl.dao.mapper</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TinyUrlMapper (com.cxm.mytinyurl.dao.mapper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">TinyUrlMapper</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.cxm.mytinyurl.dao.mapper;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.cxm.mytinyurl.dao.domain.DbTinyUrl;
+<i>4</i>&nbsp;import java.util.List;
+<i>5</i>&nbsp;import org.apache.ibatis.annotations.Insert;
+<i>6</i>&nbsp;import org.apache.ibatis.annotations.Mapper;
+<i>7</i>&nbsp;import org.apache.ibatis.annotations.Param;
+<i>8</i>&nbsp;import org.apache.ibatis.annotations.Select;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;@Mapper
+<i>11</i>&nbsp;public interface TinyUrlMapper {
+<i>12</i>&nbsp;  @Insert(&quot;INSERT INTO tb_tiny_url (tiny_url_slug, full_url) VALUES (#{tiny_url_slug}, #{full_url})&quot;)
+<i>13</i>&nbsp;  int insert(@Param(&quot;tiny_url_slug&quot;) String tinyUrlSlug, @Param(&quot;full_url&quot;) String fullUrl);
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;  @Select(&quot;SELECT * FROM tb_tiny_url WHERE tiny_url_slug = #{tiny_url_slug}&quot;)
+<i>16</i>&nbsp;  List&lt;DbTinyUrl&gt; findByTinyUrl(@Param(&quot;tiny_url_slug&quot;) String tinyUrlSlug);
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;  @Select(&quot;SELECT * FROM tb_tiny_url WHERE full_url = #{full_url}&quot;)
+<i>19</i>&nbsp;  List&lt;DbTinyUrl&gt; findByFullUrl(@Param(&quot;full_url&quot;) String fullUrl);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;  @Select(&quot;SELECT count(*) from tb_tiny_url WHERE full_url = #{full_url} or tiny_url_slug = #{tiny_url_slug}&quot;)
+<i>22</i>&nbsp;  int countByFullUrlOrTinyUrlSlug(@Param(&quot;full_url&quot;) String fullUrl, @Param(&quot;tiny_url_slug&quot;) String tinyUrlSlug);
+<i>23</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-29 23:14</div>
+</div>
+</body>
+</html>

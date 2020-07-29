@@ -17,4 +17,7 @@ public interface TinyUrlMapper {
 
   @Select("SELECT * FROM tb_tiny_url WHERE full_url = #{full_url}")
   List<DbTinyUrl> findByFullUrl(@Param("full_url") String fullUrl);
+
+  @Select("SELECT count(*) from tb_tiny_url WHERE full_url = #{full_url} or tiny_url_slug = #{tiny_url_slug}")
+  int countByFullUrlOrTinyUrlSlug(@Param("full_url") String fullUrl, @Param("tiny_url_slug") String tinyUrlSlug);
 }
