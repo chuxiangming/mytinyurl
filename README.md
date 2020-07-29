@@ -29,6 +29,7 @@ The length of the tiny url slug will be 8.
 - Springboot
 - MyBatis
 - Junit5
+- PowerMock
 
 ## Key Content List
 

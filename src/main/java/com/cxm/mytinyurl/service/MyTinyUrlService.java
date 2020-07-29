@@ -2,7 +2,6 @@ package com.cxm.mytinyurl.service;
 
 import com.cxm.mytinyurl.storage.MyTinyUrlStorage;
 import java.util.Optional;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +10,26 @@ import org.springframework.stereotype.Service;
 public class MyTinyUrlService {
 
   private final MyTinyUrlStorage myTinyUrlStorage;
+  private final TinyUrlGenerator tinyUrlGenerator;
 
   public String createOrGetTinyUrl(String fullUrl) {
-    return Optional.ofNullable(myTinyUrlStorage.getTinyUrl(fullUrl)).orElseGet(() -> {
-      String tinyUrl = generateTinyUrl();
-      myTinyUrlStorage.createTinyUrl(fullUrl, tinyUrl);
-      return tinyUrl;
-    });
+    return Optional.ofNullable(myTinyUrlStorage.getTinyUrl(fullUrl))
+        .orElseGet(
+            () -> {
+              for (int attempt = 1; attempt <= 3; attempt++) {
+                try {
+                  String tinyUrl = tinyUrlGenerator.generate();
+                  myTinyUrlStorage.createTinyUrl(fullUrl, tinyUrl);
+                  return tinyUrl;
+                } catch (Exception e) {
+                  System.out.println("Failed to create tiny url for attempt=" + attempt);
+                }
+              }
+              throw new RuntimeException("Failed to create tiny url, please try later.");
+            });
   }
 
   public String getFullUrl(String tinyUrl) {
     return myTinyUrlStorage.getFullUrl(tinyUrl);
-  }
-
-  private static String generateTinyUrl() {
-    return UUID.randomUUID().toString().substring(0, 7);
   }
 }
