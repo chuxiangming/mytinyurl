@@ -53,7 +53,7 @@
     100%
   </span>
   <span class="absValue">
-    (5/ 5)
+    (4/ 4)
   </span>
 </td>
 <td class="coverageStat">
@@ -61,7 +61,7 @@
     100%
   </span>
   <span class="absValue">
-    (7/ 7)
+    (11/ 11)
   </span>
 </td>
 </tr>
@@ -76,38 +76,43 @@
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.cxm.mytinyurl.storage.MyTinyUrlStorage;
 <i>4</i>&nbsp;import java.util.Optional;
-<i>5</i>&nbsp;import java.util.UUID;
-<i>6</i>&nbsp;import lombok.RequiredArgsConstructor;
-<i>7</i>&nbsp;import org.springframework.stereotype.Service;
-<i>8</i>&nbsp;
-<i>9</i>&nbsp;@Service
-<b class="fc"><i>10</i>&nbsp;@RequiredArgsConstructor</b>
-<i>11</i>&nbsp;public class MyTinyUrlService {
-<i>12</i>&nbsp;
-<i>13</i>&nbsp;  private final MyTinyUrlStorage myTinyUrlStorage;
+<i>5</i>&nbsp;import lombok.RequiredArgsConstructor;
+<i>6</i>&nbsp;import org.springframework.stereotype.Service;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;@Service
+<b class="fc"><i>9</i>&nbsp;@RequiredArgsConstructor</b>
+<i>10</i>&nbsp;public class MyTinyUrlService {
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;  private final MyTinyUrlStorage myTinyUrlStorage;
+<i>13</i>&nbsp;  private final TinyUrlGenerator tinyUrlGenerator;
 <i>14</i>&nbsp;
 <i>15</i>&nbsp;  public String createOrGetTinyUrl(String fullUrl) {
-<b class="fc"><i>16</i>&nbsp;    return Optional.ofNullable(myTinyUrlStorage.getTinyUrl(fullUrl)).orElseGet(() -&gt; {</b>
-<b class="fc"><i>17</i>&nbsp;      String tinyUrl = generateTinyUrl();</b>
-<b class="fc"><i>18</i>&nbsp;      myTinyUrlStorage.createTinyUrl(fullUrl, tinyUrl);</b>
-<b class="fc"><i>19</i>&nbsp;      return tinyUrl;</b>
-<i>20</i>&nbsp;    });
-<i>21</i>&nbsp;  }
-<i>22</i>&nbsp;
-<i>23</i>&nbsp;  public String getFullUrl(String tinyUrl) {
-<b class="fc"><i>24</i>&nbsp;    return myTinyUrlStorage.getFullUrl(tinyUrl);</b>
-<i>25</i>&nbsp;  }
-<i>26</i>&nbsp;
-<i>27</i>&nbsp;  private static String generateTinyUrl() {
-<b class="fc"><i>28</i>&nbsp;    return UUID.randomUUID().toString().substring(0, 7);</b>
-<i>29</i>&nbsp;  }
-<i>30</i>&nbsp;}
+<b class="fc"><i>16</i>&nbsp;    return Optional.ofNullable(myTinyUrlStorage.getTinyUrl(fullUrl))</b>
+<b class="fc"><i>17</i>&nbsp;        .orElseGet(</b>
+<i>18</i>&nbsp;            () -&gt; {
+<b class="fc"><i>19</i>&nbsp;              for (int attempt = 1; attempt &lt;= 3; attempt++) {</b>
+<i>20</i>&nbsp;                try {
+<b class="fc"><i>21</i>&nbsp;                  String tinyUrl = tinyUrlGenerator.generate();</b>
+<b class="fc"><i>22</i>&nbsp;                  myTinyUrlStorage.createTinyUrl(fullUrl, tinyUrl);</b>
+<b class="fc"><i>23</i>&nbsp;                  return tinyUrl;</b>
+<b class="fc"><i>24</i>&nbsp;                } catch (Exception e) {</b>
+<b class="fc"><i>25</i>&nbsp;                  System.out.println(&quot;Failed to create tiny url for attempt=&quot; + attempt);</b>
+<i>26</i>&nbsp;                }
+<i>27</i>&nbsp;              }
+<b class="fc"><i>28</i>&nbsp;              throw new RuntimeException(&quot;Failed to create tiny url, please try later.&quot;);</b>
+<i>29</i>&nbsp;            });
+<i>30</i>&nbsp;  }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;  public String getFullUrl(String tinyUrl) {
+<b class="fc"><i>33</i>&nbsp;    return myTinyUrlStorage.getFullUrl(tinyUrl);</b>
+<i>34</i>&nbsp;  }
+<i>35</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-07-29 23:14</div>
+    <div style="float:right;">generated on 2020-07-30 11:00</div>
 </div>
 </body>
 </html>

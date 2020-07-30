@@ -42,26 +42,26 @@
   <td class="name">MainController</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (1/ 1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 3)
+    (4/ 4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 5)
+    (5/ 5)
   </span>
 </td>
 </tr>
@@ -79,34 +79,42 @@
 <i>5</i>&nbsp;import org.springframework.stereotype.Controller;
 <i>6</i>&nbsp;import org.springframework.web.bind.annotation.GetMapping;
 <i>7</i>&nbsp;import org.springframework.web.bind.annotation.PathVariable;
-<i>8</i>&nbsp;import org.springframework.web.bind.annotation.ResponseBody;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;@Controller
-<b class="nc"><i>11</i>&nbsp;@RequiredArgsConstructor</b>
-<i>12</i>&nbsp;public class MainController {
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;  private final MyTinyUrlService myTinyUrlService;
-<b class="nc"><i>15</i>&nbsp;  private final String URL_DOMAIN = &quot;localhost:8080&quot;;</b>
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;  @GetMapping(&quot;/generate/{fullUrl}&quot;)
-<i>18</i>&nbsp;  @ResponseBody
-<i>19</i>&nbsp;  public String generate(@PathVariable String fullUrl) {
-<b class="nc"><i>20</i>&nbsp;    String urlSlug = myTinyUrlService.createOrGetTinyUrl(fullUrl);</b>
-<b class="nc"><i>21</i>&nbsp;    return URL_DOMAIN + &quot;/tiny/&quot;+urlSlug;</b>
-<i>22</i>&nbsp;  }
-<i>23</i>&nbsp;
-<i>24</i>&nbsp;  @GetMapping(&quot;/tiny/{tinyUrl}&quot;)
-<i>25</i>&nbsp;  @ResponseBody
-<i>26</i>&nbsp;  public String go(@PathVariable String tinyUrl) {
-<b class="nc"><i>27</i>&nbsp;    return myTinyUrlService.getFullUrl(tinyUrl);</b>
-<i>28</i>&nbsp;  }
-<i>29</i>&nbsp;}
+<i>8</i>&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+<i>9</i>&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.ResponseBody;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;@Controller
+<b class="fc"><i>13</i>&nbsp;@RequiredArgsConstructor</b>
+<i>14</i>&nbsp;public class MainController {
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;  private final MyTinyUrlService myTinyUrlService;
+<i>17</i>&nbsp;  private static final String URL_DOMAIN = &quot;http://localhost:8080&quot;;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;  @PostMapping(&quot;/generate&quot;)
+<i>20</i>&nbsp;  @ResponseBody
+<i>21</i>&nbsp;  public String generate(@RequestBody String fullUrl) {
+<b class="fc"><i>22</i>&nbsp;    String urlSlug = myTinyUrlService.createOrGetTinyUrl(fullUrl);</b>
+<b class="fc"><i>23</i>&nbsp;    return URL_DOMAIN + &quot;/tiny/&quot;+urlSlug;</b>
+<i>24</i>&nbsp;  }
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;  @GetMapping(&quot;/tiny/{tinyUrl}&quot;)
+<i>27</i>&nbsp;  @ResponseBody
+<i>28</i>&nbsp;  public String go(@PathVariable String tinyUrl) {
+<b class="fc"><i>29</i>&nbsp;    return myTinyUrlService.getFullUrl(tinyUrl);</b>
+<i>30</i>&nbsp;  }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;  @GetMapping(&quot;/healthcheck&quot;)
+<i>33</i>&nbsp;  @ResponseBody
+<i>34</i>&nbsp;  public String healthCheck() {
+<b class="fc"><i>35</i>&nbsp;    return &quot;success&quot;;</b>
+<i>36</i>&nbsp;  }
+<i>37</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-07-29 23:14</div>
+    <div style="float:right;">generated on 2020-07-30 11:00</div>
 </div>
 </body>
 </html>

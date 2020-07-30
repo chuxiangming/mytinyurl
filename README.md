@@ -26,7 +26,7 @@ The length of the tiny url slug will be 8.
 ## Framework Support
 
 - Gradle
-- Springboot
+- Springboot / Springboot test
 - MyBatis
 - Junit5
 - PowerMock
